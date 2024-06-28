@@ -26,6 +26,10 @@ function y=Flash(T, P, x0, alpha, type, coeffs)
 
             K = ComponentVaporPressure(T, type, coeffs)/P;
             f=x0.*(K-1.)./(1.+alpha*(K-1.));
+            % Remove contribution of NaN from sum
+            if any(isnan(f))
+                f(isnan(f))=[];
+            end
             f=sum(f);
 
     end
